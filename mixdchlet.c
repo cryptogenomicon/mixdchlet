@@ -1,8 +1,8 @@
-/* esl-mixdchlet : utilities for estimating new mixture Dirichlet priors
+/* mixdchlet : estimation of mixture Dirichlet priors
  * 
  * Contents:
- *    1. main   : subcommand brokerage
- *    2. fit    : fit new mixture Dirichlet to count data
+ *    1. main   : subcommand dispatching
+ *    2. fit    : fit mixture Dirichlet to count data
  *    3. score  : score count data with a mixture Dirichlet
  *    4. gen    : generate synthetic count data from a mixture Dirichlet
  *    5. sample : sample a random mixture Dirichlet
@@ -65,7 +65,7 @@ top_help(const char *topcmd, const char *description)
   if (lastslash) topcmd = lastslash+1;
 
   if ( printf("%s: %s\n", topcmd, description)                                       < 0) ESL_EXCEPTION_SYS(eslEWRITE, "printf failed");
-  if ( printf("Easel %s (%s): %s\n\n", EASEL_VERSION, EASEL_DATE, EASEL_URL)         < 0) ESL_EXCEPTION_SYS(eslEWRITE, "printf failed");
+  if ( printf("Using Easel %s (%s): %s\n\n", EASEL_VERSION, EASEL_DATE, EASEL_URL)   < 0) ESL_EXCEPTION_SYS(eslEWRITE, "printf failed");
   if (( status = top_usage(topcmd)) != eslOK) return status;
   if ( printf("\nSubcommands:\n")                                                    < 0) ESL_EXCEPTION_SYS(eslEWRITE, "printf failed");
   for (i = 0; i < ncmds; i++)
@@ -78,7 +78,7 @@ top_help(const char *topcmd, const char *description)
 int
 main(int argc, char **argv)
 {
-  char         banner[] = "utilities for estimating new mixture Dirichlet priors";
+  char         banner[] = "estimation of mixture Dirichlet priors";
   ESL_GETOPTS *go       = esl_getopts_Create(top_options);
   int          ncmds    = sizeof(subcommands) / sizeof(ESL_SUBCMD);
   int          idx;
